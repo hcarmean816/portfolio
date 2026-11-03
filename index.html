@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hunter Carmean — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-soft: #121828;
+      --panel: #161d2f;
+      --border: #232c42;
+      --text: #e6ecf7;
+      --muted: #8a96ad;
+      --accent: #4f8cff;
+      --accent-soft: #2a4a8a;
+      --pink: #e6187e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    /* ---------- LOAD ANIMATIONS ---------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79,140,255,0.25); }
+      50%      { box-shadow: 0 0 0 8px rgba(79,140,255,0); }
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .anim { opacity: 0; animation-fill-mode: forwards; }
+    .anim-up    { animation: fadeUp .7s ease-out forwards; }
+    .anim-left  { animation: slideInLeft .7s ease-out forwards; }
+    .anim-right { animation: slideInRight .7s ease-out forwards; }
+    .anim-fade  { animation: fadeIn .9s ease-out forwards; }
+
+    .d1 { animation-delay: .10s; }
+    .d2 { animation-delay: .22s; }
+    .d3 { animation-delay: .34s; }
+    .d4 { animation-delay: .46s; }
+    .d5 { animation-delay: .58s; }
+    .d6 { animation-delay: .70s; }
+    .d7 { animation-delay: .82s; }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(11, 15, 25, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn .6s ease-out forwards;
+    }
+
+    .nav .brand {
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+    .nav .brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 96px 40px 80px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 6px 12px;
+      border: 1px solid var(--accent-soft);
+      border-radius: 4px;
+      background: rgba(79,140,255,0.08);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 5.2vw, 64px);
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin: 0 0 20px;
+    }
+
+    .hero h1 .grad {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 6s linear infinite;
+    }
+
+    .hero .sub {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 0 34px;
+      max-width: 50ch;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 24px;
+      font-size: 14.5px;
+      font-weight: 700;
+      font-family: inherit;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, background .15s, border-color .15s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .btn-primary:hover { background: #3a7bff; transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); background: var(--bg-soft); }
+
+    /* Hero card */
+    .hero-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      background: linear-gradient(160deg, var(--panel) 0%, var(--bg-soft) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,140,255,0.25), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-card .avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .hero-card h3 { margin: 0 0 6px; font-size: 19px; letter-spacing: -0.01em; }
+    .hero-card .role { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+    .hero-card .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(79,140,255,0.12);
+      color: #a9c4ff;
+      border: 1px solid rgba(79,140,255,0.22);
+    }
+
+    /* ---------- SECTION SHELL ---------- */
+    .section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 40px;
+    }
+    .section-head { margin-bottom: 40px; }
+    .section-head .kicker {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 10px;
+    }
+    .section-head h2 {
+      font-size: clamp(26px, 3.4vw, 38px);
+      letter-spacing: -0.025em;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    /* ---------- SKILLS ---------- */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .skill-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      background: var(--panel);
+      transition: transform .2s, border-color .2s;
+    }
+    .skill-card:hover { transform: translateY(-3px); border-color: var(--accent-soft); }
+    .skill-card h4 {
+      margin: 0 0 14px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-pill {
+      font-size: 12.5px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ---------- EXPERIENCE TIMELINE ---------- */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--pink), transparent);
+    }
+
+    .job {
+      position: relative;
+      margin-bottom: 36px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      transition: border-color .2s, transform .2s;
+    }
+    .job:hover { border-color: var(--accent-soft); transform: translateX(3px); }
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -29px;
+      top: 26px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(79,140,255,0.18);
+    }
+
+    .job-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .job-head h3 {
+      margin: 0;
+      font-size: 17.5px;
+      letter-spacing: -0.01em;
+    }
+    .job-head .date {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .job .company {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 0 0 14px;
+    }
+    .job ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .job li { margin-bottom: 5px; }
+    .job li:last-child { margin-bottom: 0; }
+    .job li strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- EDUCATION ---------- */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .edu-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      background: var(--panel);
+      position: relative;
+      overflow: hidden;
+    }
+    .edu-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pink));
+    }
+    .edu-card h4 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .edu-card .major { color: var(--accent); font-size: 13.5px; font-weight: 600; margin: 0 0 8px; }
+    .edu-card .grad { color: var(--muted); font-size: 13px; margin: 0; }
+
+    /* ---------- CONTACT ---------- */
+    .contact-panel {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(79,140,255,0.12), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(230,24,126,0.10), transparent 60%),
+        var(--panel);
+      text-align: center;
+    }
+    .contact-panel h2 {
+      font-size: clamp(26px, 3.6vw, 40px);
+      letter-spacing: -0.025em;
+      margin: 0 0 14px;
+    }
+    .contact-panel p {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 auto 30px;
+      max-width: 52ch;
+      line-height: 1.6;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    /* ---------- REVEAL ON SCROLL ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease-out, transform .7s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px 56px; }
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .section { padding: 56px 24px; }
+      .contact-panel { padding: 36px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; }
+      .btn { justify-content: center; }
+      .job-head { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <nav class="nav">
+    <div class="brand">Hunter<span>Carmean</span></div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div>
+      <span class="eyebrow anim anim-up d1">Software Engineer · Marietta, GA</span>
+      <h1 class="anim anim-up d2">
+        Building reliable<br />
+        full-stack systems<br />
+        <span class="grad">with purpose.</span>
+      </h1>
+      <p class="sub anim anim-up d3">
+        Software engineer with a focus on full-stack development, cloud
+        infrastructure, and developer tooling. I turn complex problems into
+        clean, maintainable solutions — from CI/CD pipelines to
+        source-backed study apps.
+      </p>
+      <div class="hero-cta anim anim-up d4">
+        <a class="btn btn-primary" href="#experience">View Experience</a>
+        <a class="btn btn-ghost" href="mailto:hcarmean816@gmail.com">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-card anim anim-right d3">
+      <div class="avatar">HC</div>
+      <h3>Hunter Carmean</h3>
+      <p class="role">Full-Stack Engineer &amp; Problem Solver</p>
+      <div class="tag-row">
+        <span class="tag">C#</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">React</span>
+        <span class="tag">Go</span>
+        <span class="tag">Python</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Playwright</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SKILLS ================= -->
+  <section class="section" id="skills">
+    <div class="section-head reveal">
+      <div class="kicker">What I Work With</div>
+      <h2>Technical Skills</h2>
+    </div>
+
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <h4>Languages</h4>
+        <div class="skill-list">
+          <span class="skill-pill">C#</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">Go</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <h4>Frameworks</h4>
+        <div class="skill-list">
+          <span class="skill-pill">.NET Core</span>
+          <span class="skill-pill">React</span>
+          <span class="skill-pill">Node</span>
+          <span class="skill-pill">Vue</span>
+          <span class="skill-pill">Angular</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <h4>Tools &amp; Platforms</h4>
+        <div class="skill-list">
+          <span class="skill-pill">AWS</span>
+          <span class="skill-pill">Azure</span>
+          <span class="skill-pill">Jenkins</span>
+          <span class="skill-pill">Kubernetes</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Playwright</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section class="section" id="experience">
+    <div class="section-head reveal">
+      <div class="kicker">Where I've Worked</div>
+      <h2>Experience</h2>
+    </div>
+
+    <div class="timeline">
+	  
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Software Engineer</h3>
+          <span class="date">Jan 2025 – Present</span>
+        </div>
+        <p class="company">Civic Tech ATL · Volunteer</p>
+        <ul>
+          <li>Built responsive web applications with <strong>React/Node</strong> and <strong>TypeScript</strong></li>
+          <li>Utilized AI in daily workflow (<strong>Claude</strong>, <strong>Cursor</strong>)</li>
+          <li>Led high-level design and development mentorship discussions</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Software Engineer II</h3>
+          <span class="date">May 2023 – Jun 2024</span>
+        </div>
+        <p class="company">Zelis Healthcare · Layoff</p>
+        <ul>
+          <li>Constructed and maintained CI/CD pipeline (<strong>AWS</strong>, <strong>Jenkins</strong>, <strong>Git</strong>)</li>
+          <li>Troubleshot client data and API issues (<strong>SQL</strong>, <strong>C#</strong>, <strong>React/Node</strong>, <strong>TypeScript</strong>)</li>
+          <li>Diagnosed complex issues and performed root cause analysis (<strong>SQL</strong>, <strong>C#</strong>, <strong>Go</strong>)</li>
+          <li>Improved existing skills and pursued additional skills (<strong>GitHub Actions</strong>, <strong>Rust</strong>, <strong>Agile</strong>)</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Software Engineer II</h3>
+          <span class="date">Feb 2023 – Mar 2023</span>
+        </div>
+        <p class="company">Hub International · Contract</p>
+        <ul>
+          <li>Updated customer portal for medium banks and credit unions</li>
+          <li>Integrated third party API for insurance document parsing (<strong>SendGrid</strong>)</li>
+          <li>Implemented features end-to-end to improve client experience (<strong>React/Node</strong>, <strong>TypeScript</strong>, <strong>Go</strong>)</li>
+          <li>Assisted design for future cloud integration (<strong>Azure</strong>, <strong>AWS</strong>)</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Software Engineer II</h3>
+          <span class="date">Jan 2022 – Jan 2023</span>
+        </div>
+        <p class="company">York Solutions · Contract</p>
+        <ul>
+          <li>Improved CI/CD pipeline which decreased code deployment time by <strong>8%</strong></li>
+          <li>Containerized applications for reliable local development</li>
+          <li>Implemented real-time processing with event streaming for payment integrity system</li>
+          <li>Configured automated testing suite for UI and API (<strong>Playwright</strong>)</li>
+          <li>Mentored <strong>8 junior developers</strong> and provided code review office hours</li>
+          <li>Developed APIs for provider payment system and insurance providers (<strong>React/Node</strong>, <strong>TypeScript</strong>, <strong>Go</strong>)</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Owner / Software Engineer</h3>
+          <span class="date">Jan 2021 – Dec 2021</span>
+        </div>
+        <p class="company">Carmean Designs</p>
+        <ul>
+          <li>Facilitated meetings and research to identify customer needs and requirements</li>
+          <li>Provided design and end-to-end development for client solutions</li>
+          <li>Managed multiple projects for customer deliverables (<strong>React/Node</strong>, <strong>TypeScript</strong>)</li>
+          <li>Increased customer traffic by <strong>17%</strong> for small businesses and restaurants</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Software Engineer</h3>
+          <span class="date">Jan 2020 – Dec 2020</span>
+        </div>
+        <p class="company">Norfolk Southern · Contract</p>
+        <ul>
+          <li>Spearheaded team modernization initiative (<strong>Azure</strong>, <strong>Jenkins</strong>, <strong>React/Node</strong>, <strong>TypeScript</strong>)</li>
+          <li>Developed code for dashboards and features for car routing</li>
+          <li>Documented and standardized APIs for efficient testing (<strong>C#</strong>)</li>
+          <li>Disaster recovery engineer (<strong>50+ IT engineers</strong>)</li>
+          <li>Improved existing skills and pursued additional skills (<strong>Python</strong>, <strong>DevOps</strong>, <strong>Go</strong>)</li>
+          <li>Coordinated with a team of <strong>30+ software engineers</strong> for critical system cloud migration</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Full-Stack Engineer</h3>
+          <span class="date">Jan 2019 – Sept 2019</span>
+        </div>
+        <p class="company">Launch Digital Agency · Contract</p>
+        <ul>
+          <li>Developed web applications with modern JavaScript frameworks (<strong>React/Node</strong>, <strong>TypeScript</strong>)</li>
+          <li>Configured front-end development tools (<strong>Babel</strong>, <strong>Webpack</strong>)</li>
+          <li>Utilized issue tracking system to manage incoming and ongoing issues</li>
+          <li>Experience working with custom and existing APIs (<strong>C#</strong>, <strong>Go</strong>)</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Associate Software Engineer</h3>
+          <span class="date">Feb 2018 – Dec 2018</span>
+        </div>
+        <p class="company">Norfolk Southern · Contract</p>
+        <ul>
+          <li>Updated web-based infrastructure inventory system</li>
+          <li>Redesigned inventory system as a single page application (<strong>React/Node</strong>, <strong>TypeScript</strong>, <strong>Go</strong>)</li>
+          <li>Wrote Bash and Perl scripts to automate processes</li>
+          <li>Registered and installed Unix servers</li>
+          <li>Installed infrastructure and troubleshot issues in Recovery Data Center</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-head">
+          <h3>Research Specialist</h3>
+          <span class="date">Aug 2016 – May 2017</span>
+        </div>
+        <p class="company">Emory University · Pediatric Neuro-Oncology</p>
+        <ul>
+          <li>Executed budget and inventory analysis to maximize research funding (<strong>Python</strong>, <strong>R</strong>)</li>
+          <li>Managed and assisted team projects to meet individual researchers' timelines</li>
+          <li>Implemented record-keeping and reporting methodology for <strong>2000+ mice colony</strong></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section class="section" id="education">
+    <div class="section-head reveal">
+      <div class="kicker">Academic Background</div>
+      <h2>Education</h2>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <h4>Western Governors University</h4>
+        <p class="major">M.S. Computer Science</p>
+        <p class="grad">Millcreek, UT · Expected December 2027</p>
+      </div>
+
+      <div class="edu-card reveal">
+        <h4>Chattahoochee Technical College</h4>
+        <p class="major">A.A.S. Computer Programming</p>
+        <p class="grad">Marietta, GA · Graduated May 2019</p>
+      </div>
+
+      <div class="edu-card reveal">
+        <h4>University of Georgia</h4>
+        <p class="major">B.S. Psychology &amp; Neuroscience</p>
+        <p class="grad">Athens, GA · Graduated August 2016</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section" id="contact">
+    <div class="contact-panel reveal">
+      <h2>Let's build something.</h2>
+      <p>
+        Open to full-time roles, contracts, and collaborative projects.
+        Whether it's full-stack development, cloud infrastructure, or
+        developer tooling — I'd love to hear about it.
+      </p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:hcarmean816@gmail.com">hcarmean816@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+17708565042">770-856-5042</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    © 2026 Hunter Carmean · Marietta, GA · Built with React &amp; Python
+  </footer>
+
+  <script>
+    /* ---------- Scroll reveal (IntersectionObserver) ---------- */
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---------- Smooth active nav highlight ---------- */
+    (function () {
+      const sections = document.querySelectorAll('section[id]');
+      const links = document.querySelectorAll('.nav-links a');
+      if (!sections.length || !links.length) return;
+
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            links.forEach(function (l) {
+              l.style.color = l.getAttribute('href') === '#' + id ? 'var(--text)' : '';
+            });
+          }
+        });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      sections.forEach(function (s) { obs.observe(s); });
+    })();
+  </script>
+
+</body>
+</html>

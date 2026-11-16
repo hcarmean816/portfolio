@@ -6,6 +6,7 @@
   <title>Hunter Carmean — Portfolio</title>
   <style>
     :root {
+      color-scheme: dark;
       --bg: #0b0f19;
       --bg-soft: #121828;
       --panel: #161d2f;
@@ -15,6 +16,23 @@
       --accent: #4f8cff;
       --accent-soft: #2a4a8a;
       --pink: #e6187e;
+      --nav-bg: rgba(11, 15, 25, 0.82);
+      --tag-text: #a9c4ff;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --bg-soft: #ebeff7;
+      --panel: #ffffff;
+      --border: #d8dfeb;
+      --text: #1d2738;
+      --muted: #59677d;
+      --accent: #2868d7;
+      --accent-soft: #a8c0eb;
+      --pink: #c41468;
+      --nav-bg: rgba(245, 247, 251, 0.88);
+      --tag-text: #2857a5;
     }
 
     * { box-sizing: border-box; }
@@ -83,7 +101,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 18px 40px;
-      background: rgba(11, 15, 25, 0.82);
+      background: var(--nav-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       animation: fadeIn .6s ease-out forwards;
@@ -112,6 +130,24 @@
       transition: color .2s;
     }
     .nav-links a:hover { color: var(--text); }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .theme-toggle:hover { border-color: var(--accent); background: var(--bg-soft); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
     /* ---------- HERO ---------- */
     .hero {
@@ -240,7 +276,7 @@
       padding: 5px 10px;
       border-radius: 999px;
       background: rgba(79,140,255,0.12);
-      color: #a9c4ff;
+      color: var(--tag-text);
       border: 1px solid rgba(79,140,255,0.22);
     }
 
@@ -482,6 +518,10 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+      <span aria-hidden="true">☀</span>
+      <span id="theme-toggle-label">Light mode</span>
+    </button>
   </nav>
 
   <!-- ================= HERO ================= -->
@@ -759,6 +799,22 @@
   </footer>
 
   <script>
+    /* ---------- Theme toggle ---------- */
+    (function () {
+      const button = document.getElementById('theme-toggle');
+      const label = document.getElementById('theme-toggle-label');
+      const icon = button.querySelector('[aria-hidden="true"]');
+
+      button.addEventListener('click', function () {
+        const isLight = document.documentElement.dataset.theme !== 'light';
+        document.documentElement.dataset.theme = isLight ? 'light' : 'dark';
+        button.setAttribute('aria-pressed', String(isLight));
+        button.setAttribute('aria-label', 'Switch to ' + (isLight ? 'dark' : 'light') + ' mode');
+        label.textContent = isLight ? 'Dark mode' : 'Light mode';
+        icon.textContent = isLight ? '☾' : '☀';
+      });
+    })();
+
     /* ---------- Scroll reveal (IntersectionObserver) ---------- */
     (function () {
       const els = document.querySelectorAll('.reveal');

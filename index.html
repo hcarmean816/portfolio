@@ -339,6 +339,42 @@
       font-weight: 500;
     }
 
+    /* ---------- PROJECTS ---------- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      background: var(--panel);
+      transition: transform .2s, border-color .2s;
+    }
+    .project-card:hover { transform: translateY(-3px); border-color: var(--accent-soft); }
+    .project-card .project-owner {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .project-card h3 {
+      margin: 0 0 18px;
+      font-size: 19px;
+      letter-spacing: -0.01em;
+    }
+    .project-card a {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .project-card a:hover { text-decoration: underline; }
+    .project-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
     /* ---------- EXPERIENCE TIMELINE ---------- */
     .timeline {
       position: relative;
@@ -514,6 +550,7 @@
     <div class="brand">Hunter<span>Carmean</span></div>
     <ul class="nav-links">
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -605,6 +642,28 @@
           <span class="skill-pill">Playwright</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="section" id="projects">
+    <div class="section-head reveal">
+      <div class="kicker">What I've Built</div>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card reveal">
+        <p class="project-owner">SkyyTechHQ</p>
+        <h3>SkyyCards, AI-powered flashcard and quiz creator</h3>
+        <a href="https://github.com/SkyyTechHQ/SkyyCards" target="_blank" rel="noopener noreferrer">View repository</a>
+      </article>
+
+      <article class="project-card reveal">
+        <p class="project-owner">Civic Tech Atlanta</p>
+        <h3>Courtbot, text notifications for upcoming court dates</h3>
+        <a href="https://github.com/CivicTechAtlanta/proj-ga-court-reminders" target="_blank" rel="noopener noreferrer">View repository</a>
+      </article>
     </div>
   </section>
 
